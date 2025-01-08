@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companies</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #eff0f4;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header .back {
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            background-color: #004fa3;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        header .back:hover {
+            background-color: #91bac3;
+        }
+        main {
+            padding: 75px;
+        }
+        .company-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .company-card {
+            background-color: rgba(78, 178, 191, 0.173);
+            border: 1px solid #f5efef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(232, 76, 76, 0.626);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .company-card:hover {
+            transform: scale(1.05);
+        }
+        .company-card h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .company-card button {
+            padding: 10px 15px;
+            font-size: 14px;
+            color: rgb(249, 249, 250);
+            background-color: #070e71b7;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .company-card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Companies</h1>
+        <a href="home.html" class="back">Back to Home</a>
+    </header>
+
+    <main>
+        <div class="company-list" id="company-list">
+            <!-- Company cards will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <script>
+    
+        const companies = [
+            { name: 'Google', page: 'googletg.html' },
+            { name: 'Microsoft', page: 'microsofttg.html' },
+            { name: 'Amazon', page: 'amazontg.html' },
+            { name: 'Apple', page: 'appletg.html' },
+            { name: 'Facebook', page: 'facebook.html' },
+            { name: 'IBM', page: 'ibm.html' },
+            { name: 'TCS', page: 'tcs.html' },
+            { name: 'Infosys', page: 'infosys.html' },
+            { name: 'Wipro', page: 'wipro.html' },
+            { name: 'Accenture', page: 'accenture.html' }
+        ];
+
+        const companyList = document.getElementById('company-list');
+
+
+        companies.forEach(company => {
+            const card = document.createElement('div');
+            card.className = 'company-card';
+
+            card.innerHTML = `
+                <h2>${company.name}</h2>
+                <button onclick="window.location.href='${company.page}'">View Resources</button>
+            `;
+
+            companyList.appendChild(card);
+        });
+    </script>
+</body>
+</html>
