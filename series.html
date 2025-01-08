@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Series Aptitude Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .answer-feedback {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #007BFF;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Series Aptitude Quiz</h1>
+        
+        <form id="quiz-form">
+            <div class="question">
+                <p><strong>1. What comes next in the series: 2, 6, 12, 20, 30, ?</strong></p>
+                <input type="radio" name="q1" value="A"> A. 42<br>
+                <input type="radio" name="q1" value="B"> B. 40<br>
+                <input type="radio" name="q1" value="C"> C. 50<br>
+                <input type="radio" name="q1" value="D"> D. 36<br>
+            </div>
+
+            <div class="question">
+                <p><strong>2. Find the next term in the series: 3, 9, 27, 81, ?</strong></p>
+                <input type="radio" name="q2" value="A"> A. 162<br>
+                <input type="radio" name="q2" value="B"> B. 243<br>
+                <input type="radio" name="q2" value="C"> C. 324<br>
+                <input type="radio" name="q2" value="D"> D. 729<br>
+            </div>
+
+            <div class="question">
+                <p><strong>3. Identify the next number: 1, 1, 2, 3, 5, 8, ?</strong></p>
+                <input type="radio" name="q3" value="A"> A. 10<br>
+                <input type="radio" name="q3" value="B"> B. 11<br>
+                <input type="radio" name="q3" value="C"> C. 13<br>
+                <input type="radio" name="q3" value="D"> D. 21<br>
+            </div>
+
+            <div class="question">
+                <p><strong>4. What is the next term in the sequence: 16, 23, 31, 40, ?</strong></p>
+                <input type="radio" name="q4" value="A"> A. 48<br>
+                <input type="radio" name="q4" value="B"> B. 50<br>
+                <input type="radio" name="q4" value="C"> C. 52<br>
+                <input type="radio" name="q4" value="D"> D. 55<br>
+            </div>
+
+            <div class="question">
+                <p><strong>5. Determine the next number: 121, 144, 169, 196, ?</strong></p>
+                <input type="radio" name="q5" value="A"> A. 225<br>
+                <input type="radio" name="q5" value="B"> B. 256<br>
+                <input type="radio" name="q5" value="C"> C. 289<br>
+                <input type="radio" name="q5" value="D"> D. 324<br>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="checkAnswers()">Submit</button>
+            <button type="button" class="submit-btn" onclick="showPage()">Exit</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const answers = ['A', 'B', 'C', 'C', 'A'];
+            let score = 0;
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = ''; 
+
+            const feedback = [];
+            for (let i = 0; i < answers.length; i++) {
+                const userAnswer = document.querySelector(`input[name="q${i+1}"]:checked`);
+                if (userAnswer) {
+                    if (userAnswer.value === answers[i]) {
+                        score++;
+                        feedback.push(`<p class="answer-feedback correct">Question ${i+1}: Correct!</p>`);
+                    } else {
+                        feedback.push(`<p class="answer-feedback incorrect">Question ${i+1}: Incorrect! Correct answer is ${answers[i]}.</p>`);
+                    }
+                } else {
+                    feedback.push(`<p class="answer-feedback incorrect">Question ${i+1}: Unanswered! Correct answer is ${answers[i]}.</p>`);
+                }
+            }
+
+            resultDiv.innerHTML = `You scored ${score} out of ${answers.length}.<br>` + feedback.join('');
+        }
+
+        function showPage(){
+            window.location.href="Aptitude.html";
+        }
+    </script>
+</body>
+</html>
