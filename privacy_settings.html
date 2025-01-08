@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Hub | Privacy Settings</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        /* Light Mode Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #072382;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header .profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        header .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        header .profile span {
+            font-size: 16px;
+        }
+        header .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        header .dropdown button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            text-align: left;
+            font-size: 16px;
+            background: none;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        header .dropdown button:last-child {
+            border-bottom: none;
+        }
+        header .dropdown button:hover {
+            background-color: #f0f0f0;
+        }
+        main {
+            padding: 70px;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background-color: rgba(160, 224, 230, 0.358);
+            border: 1px solid #0f76ba;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(50, 61, 157, 0.479);
+            width: 248px;
+            height: 200px;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .card button {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #265280;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+        header.dark-mode {
+            background-color: #333333;
+        }
+        header .dropdown.dark-mode button {
+            background-color: #333333;
+            color: white;
+        }
+        header .dropdown.dark-mode button:hover {
+            background-color: #555555;
+        }
+        .card.dark-mode {
+            background-color: rgba(38, 82, 128, 0.2);
+            border: 1px solid #004d80;
+        }
+        .card.dark-mode button {
+            background-color: #007bff;
+        }
+        .card.dark-mode button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+        <div class="profile" onclick="toggleDropdown()">
+            <img src="profile.jpg" alt="Profile Picture">
+            <span>Profile</span>
+            <div id="profileDropdown" class="dropdown">
+                <button onclick="window.location.href='personal_details.html'" class="back">Personal Details</button>
+                <button onclick="window.location.href='bookmarks.html'" class="back">Bookmark</button>
+                <button onclick="window.location.href='privacy_settings.html'" class="back">Privacy Settings</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="card">
+                <h2>Companies</h2>
+                <p>Explore company-specific resources and tips.</p>
+                <button onclick="window.location.href='companies.html'">Go to Companies</button>
+            </div>
+
+            <div class="card">
+                <h2>Tips and Guidance</h2>
+                <p>Follow these tips to land on your dream job.</p>
+                <button onclick="window.location.href='tips.html'">Tips</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h2>Aptitude</h2>
+                <p>Enhance your aptitude and verbal ability with curated questions.</p>
+                <button onclick="window.location.href='Aptitude.html'">Practice</button>
+            </div>
+
+            <div class="card">
+                <h2>My Tests</h2>
+                <p>Practice with PYQ</p>
+                <br>
+                <button onclick="window.location.href='sample.html'">Take Test</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function goToPage(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            alert('You have been logged out.');
+            window.location.href = 'index.html'; 
+        }
+
+    
+        function toggleTheme() {
+            const body = document.body;
+            const header = document.querySelector('header');
+            const cards = document.querySelectorAll('.card');
+            const dropdownButtons = document.querySelectorAll('.dropdown button');
+
+    
+            body.classList.toggle('dark-mode');
+            header.classList.toggle('dark-mode');
+
+            cards.forEach(card => card.classList.toggle('dark-mode'));
+            dropdownButtons.forEach(button => button.classList.toggle('dark-mode'));
+        }
+    </script>
+</body>
+</html>

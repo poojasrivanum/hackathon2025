@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #072382;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            background-color: #265280;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        header a:hover {
+            background-color: #003d99;
+        }
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .details input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+        .details input:disabled {
+            background-color: #e9ecef;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .buttons .edit-btn {
+            background-color: #265280;
+            color: white;
+        }
+        .buttons .edit-btn:hover {
+            background-color: #003d99;
+        }
+        .buttons .save-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .buttons .save-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function toggleEditMode(enable) {
+            const inputs = document.querySelectorAll('.details input');
+            inputs.forEach(input => input.disabled = !enable);
+        }
+
+        function saveDetails() {
+            const inputs = document.querySelectorAll('.details input');
+            let updatedDetails = {};
+            inputs.forEach(input => {
+                updatedDetails[input.name] = input.value;
+            });
+
+            localStorage.setItem('personalDetails', JSON.stringify(updatedDetails));
+            alert('Details saved successfully!');
+            toggleEditMode(false);
+        }
+
+        function loadDetails() {
+            const savedDetails = JSON.parse(localStorage.getItem('personalDetails'));
+            if (savedDetails) {
+                Object.entries(savedDetails).forEach(([key, value]) => {
+                    const input = document.querySelector(`.details input[name="${key}"]`);
+                    if (input) input.value = value;
+                });
+            }
+            toggleEditMode(false); 
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDetails);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Personal Details</h1>
+        <a href="home.html">Back to Home</a>
+    </header>
+    <main>
+        <div class="details">
+            <label for="username">Name:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username" disabled>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" disabled>
+
+            <label for="institute">Institute Name:</label>
+            <input type="text" id="institute" name="institute" placeholder="Enter institute name" disabled>
+
+            <label for="passout">Passout Year:</label>
+            <input type="text" id="passout" name="passout" placeholder="Enter your passout year" disabled>
+        </div>
+        <div class="buttons">
+            <button class="edit-btn" onclick="toggleEditMode(true)">Edit</button>
+            <button class="save-btn" onclick="saveDetails()">Save</button>
+        </div>
+    </main>
+</body>
+</html>
