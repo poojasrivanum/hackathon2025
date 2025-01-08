@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Hub | Login</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .login-container {
+            background: #fff;
+            color: #333;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #4e54c8;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-control label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-control input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-control input:focus {
+            border-color: #4e54c8;
+            outline: none;
+            box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+        }
+
+        .login-btn {
+            background: #4e54c8;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #373d9c;
+        }
+
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password a {
+            color: #4e54c8;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .login-container h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        #home-page {
+            display: none;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container" id="login-page">
+        <h1>Login</h1>
+        <form id="login-form" action="#" method="POST" onsubmit="submitLoginForm(event)">
+            <div class="form-control">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="login-email" required>
+            </div>
+            <div class="form-control">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="login-password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p class="forgot-password">
+            <a href="#" onclick="showForgotPasswordPage()">Forgot your password?</a>
+        </p>
+    </div>
+
+    <div class="login-container" id="forgot-password-page" style="display: none;">
+        <h1>Forgot Password</h1>
+        <form id="forgot-password-form" action="#" method="POST" onsubmit="updatePassword(event)">
+            <div class="form-control">
+                <label for="forgot-email">Email</label>
+                <input type="email" id="forgot-email" name="forgot-email" required>
+            </div>
+            <div class="form-control">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
+            <button type="submit" class="login-btn">Update Password</button>
+        </form>
+    </div>
+
+    <div id="home-page">
+        <h1>Welcome to the Home Page!</h1>
+        <p>You have successfully logged in.</p>
+    </div>
+
+    <script>
+        function submitLoginForm(event) {
+            event.preventDefault();
+
+            const storedUserDetails = JSON.parse(localStorage.getItem('userDetails'));
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (storedUserDetails && email === storedUserDetails.email && password === storedUserDetails.password) {
+                alert(`Welcome back, ${storedUserDetails.name}!`);
+                showHomePage();
+            } else {
+                alert('Invalid email or password.');
+            }
+
+            document.getElementById('login-form').reset();
+        }
+
+        function showForgotPasswordPage() {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('forgot-password-page').style.display = 'block';
+        }
+
+        function updatePassword(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('forgot-email').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            const storedUserDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+            if (!storedUserDetails) {
+                alert('No user found. Please sign up first.');
+                return;
+            }
+
+            if (email === storedUserDetails.email) {
+                storedUserDetails.password = newPassword;
+                localStorage.setItem('userDetails', JSON.stringify(storedUserDetails));
+                alert('Password updated successfully!');
+                showLoginPage();
+            } else {
+                alert('Invalid email.');
+            }
+        }
+
+        function showLoginPage() {
+            document.getElementById('forgot-password-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'block';
+        }
+
+        function showHomePage() {
+            window.location.href="home.html";
+        }
+    </script>
+</body>
+</html>
